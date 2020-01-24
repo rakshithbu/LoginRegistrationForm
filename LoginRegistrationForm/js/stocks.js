@@ -27,6 +27,7 @@ function getStocks(userType) {
             <td>${value.name}</td>
             <td>${value.cost} $</td>
              ${stock}
+              <td><button type="button" style="background-color: red" onclick="deleteStock('${value.stockId}')">Delete Stock</button> </td>
     </tr>`;
                     $("#stocktbody").append(data);
                 });
@@ -66,6 +67,16 @@ function changeStockStatus(stockName,stockValue){
         url: "http://localhost:8080/stocks/changeStockStatus?stockName="+stockName+"&stockValue="+stockValue+"",
         success: function (result) {
             console.log(result);
+            getStocks("manager login");
+        }
+    });
+}
+
+function deleteStock(stockId){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/stocks/deleteStock?stockName="+stockId,
+        success: function (result) {
             getStocks("manager login");
         }
     });
